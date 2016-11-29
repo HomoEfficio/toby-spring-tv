@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by hanmomhanda on 2016-11-06.
  */
-public class TypeReferenceMap {
+public class TypeSafeMap {
 
     private Map<TypeReference<?>, Object> map = new HashMap<>();
 

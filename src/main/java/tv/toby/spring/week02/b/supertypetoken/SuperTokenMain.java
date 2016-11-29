@@ -1,8 +1,5 @@
 package tv.toby.spring.week02.b.supertypetoken;
 
-import org.springframework.jdbc.core.ColumnMapRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class SuperTokenMain {
 
     public static void main(String[] args) {
 
-        TypeReferenceMap map = new TypeReferenceMap();
+        TypeSafeMap map = new TypeSafeMap();
 
         map.put(new TypeReference<String>() {}, "abc");
 //        map.put(new TypeReference<String>() {}, "def");
