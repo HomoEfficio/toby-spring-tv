@@ -1,5 +1,9 @@
 package tv.toby.spring.week05.reactive;
 
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
@@ -40,10 +44,10 @@ public class Reactive {
 
                 ExecutorService executorService = Executors.newCachedThreadPool();
 
-                subscriber.onSubscribe(new Subscripttion() {
+                subscriber.onSubscribe(new Subscription() {
                     public void request(long n) {
 
-                        Future<?> f = executorService.submit() -> {
+                        Future<?> f = executorService.submit(() -> {
                             int i = 0;
                             // 여기에서 backpressure 를 조절
                             try {
@@ -53,14 +57,14 @@ public class Reactive {
                                     if (it.hasNext())
                                         subscriber.onNext(it.next());
                                     else {
-                                        subscriber.onComlete();
+                                        subscriber.onComplete();
                                         break;
                                     }
                                 }
                             } catch (RuntimeException e) {
                                 subscriber.onError(e);
                             }
-                        }
+                        });
                     }
 
                     public void cancel() {
@@ -71,7 +75,7 @@ public class Reactive {
             }
         };
 
-        Subscriber<Integer> s = new Subscriber<>() {
+        Subscriber<Integer> s = new Subscriber<Integer>() {
 
             Subscription subscription;
 
